@@ -9,6 +9,12 @@ class Provinsi extends CI_Controller
                 parent::__construct();
 
                 $this->load->model('pengajuan_model');
+                $this->load->model('program_model');
+				$this->load->model('kegiatan_model');
+				$this->load->model('kro_model');
+				$this->load->model('ro_model');
+				$this->load->model('komponen_model');
+				$this->load->model('satuan_model');
                 $this->load->model('account_model');
                 $this->load->library('session');
                 $this->load->helper(array('form', 'url'));
@@ -99,34 +105,6 @@ class Provinsi extends CI_Controller
         }
 
 
-        public function hapusanggaran($id_pengajuan)
-        {
-                $this->db->trans_start();
-                $pengajuan = $this->pengajuan_model->get_pengajuan_by_id($id_pengajuan);
-
-                if ($pengajuan) {
-                        if (isset($pengajuan['file_bukti'])) {
-                                $file_path = FCPATH . $pengajuan['file_bukti'];
-                                if (file_exists($file_path)) {
-                                        unlink($file_path);
-                                }
-                        }
-
-                        $this->pengajuan_model->hapus_import_data_by_pengajuan($id_pengajuan);
-                        $result = $this->pengajuan_model->hapus_pengajuan_kabkota($id_pengajuan);
-                        $this->db->trans_complete();
-
-                        if ($this->db->trans_status() === FALSE || !$result) {
-                                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal menghapus data pengajuan!</div>');
-                        } else {
-                                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data pengajuan berhasil dihapus!</div>');
-                        }
-                } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data pengajuan tidak ditemukan!</div>');
-                }
-
-                redirect('provinsi/anggarandaerah');
-        }
 
         public function akunkabkota()
         {$data['users'] = $this->account_model->get_kab_users();
@@ -521,4 +499,159 @@ class Provinsi extends CI_Controller
 			$this->db->update('pengajuan_kabkota', $data);
 		}
 	}
+    public function lihatBerkas($filename) {
+        // Sanitasi nama file untuk menghindari karakter ilegal
+        $filename = basename($filename);
+    
+        // Set path lengkap ke file
+        $file_path = FCPATH . $filename;
+    
+        if (file_exists($file_path)) {
+            $this->output
+                ->set_content_type(mime_content_type($file_path))
+                ->set_output(file_get_contents($file_path));
+        } else {
+            show_404();
+        }
+    }
+    public function hapuspengajuan($id_pengajuan) {
+        $this->db->trans_start();
+        $pengajuan = $this->pengajuan_model->get_pengajuan_by_idprov($id_pengajuan);
+    
+        if ($pengajuan) {
+            if (isset($pengajuan['file_bukti'])) {
+                $file_path = FCPATH . $pengajuan['file_bukti'];
+                if (file_exists($file_path)) {
+                    unlink($file_path);
+                }
+            }
+    
+            $this->pengajuan_model->hapus_import_data_by_pengajuanprov($id_pengajuan);
+            $result = $this->pengajuan_model->hapus_pengajuan_provinsi($id_pengajuan);
+            $this->db->trans_complete();
+    
+            if ($this->db->trans_status() === FALSE || !$result) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal menghapus data pengajuan!</div>');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data pengajuan berhasil dihapus!</div>');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data pengajuan tidak ditemukan!</div>');
+        }
+    
+        redirect('provinsi/pengajuan');
+    }
+    public function downloadData($id_pengajuan) {
+        // Pastikan untuk memuat model yang diperlukan
+        $this->load->model('pengajuan_model');
+    
+        // Ambil data berdasarkan id_pengajuan
+        $data = $this->pengajuan_model->get_data_for_downloadprov($id_pengajuan);
+    
+        // Periksa apakah data ditemukan
+        if (empty($data)) {
+            // Set flash data untuk pesan kesalahan
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">ID Pengajuan tidak ditemukan. Tidak dapat mengunduh data.</div>');
+            // Redirect kembali ke halaman sebelumnya atau halaman utama
+            redirect('provinsi/pengajuan');
+            return;
+        }
+    
+        // Buat file CSV sementara
+        $csvFileName = 'data_' . $id_pengajuan . '.csv';
+        $csvFile = fopen('php://temp', 'w');
+    
+        // Header untuk file CSV
+        $header = array(
+            'Program',
+            'Kegiatan',
+            'KRO',
+            'RO',
+            'Komponen',
+            'Satuan',
+            'Qty',
+            'Subtotal',
+            'Total'
+        );
+        fputcsv($csvFile, $header);
+    
+        // Tulis data ke file CSV
+        foreach ($data as $row) {
+            fputcsv($csvFile, array(
+                $row->Program,
+                $row->Kegiatan,
+                $row->KRO,
+                $row->RO,
+                $row->Komponen,
+                $row->Satuan,
+                $row->Qty,
+                $row->subtotal,
+                $row->total
+            ));
+        }
+    
+        // Atur header untuk memicu unduhan file
+        header('Content-Type: application/csv');
+        header('Content-Disposition: attachment; filename="' . $csvFileName . '"');
+    
+        // Baca file CSV sementara dan kirimkan ke output
+        rewind($csvFile);
+        echo stream_get_contents($csvFile);
+    
+        // Tutup file CSV
+        fclose($csvFile);
+    
+        // Hentikan eksekusi kode lebih lanjut
+        exit();
+    }
+    public function tambahitem()
+    {
+
+        $data['program'] = $this->program_model->get();
+        $data['kegiatan'] = $this->kegiatan_model->get();
+        $data['kro'] = $this->kro_model->get();
+        $data['ro'] = $this->ro_model->get();
+        $data['komponen'] = $this->komponen_model->get();
+        $data['satuan'] = $this->satuan_model->get();
+        $this->load->view('template/header');
+        $this->load->view('template/sidebarprov',$data);
+        $this->load->view('prov/tambahitem');
+        $this->load->view('template/footer');
+        $this->load->view('kota/scripts');
+    }
+    public function tambah_item() {
+		
+		$qty = $this->input->post('qty');
+		$subtotal = $this->input->post('subtotal');
+		$total = $qty * $subtotal;
+		$id_pengajuan =$this->input->post('id_pengajuan');
+        $data_item = array(
+            'program' => $this->input->post('program'),
+            'kegiatan' => $this->input->post('kegiatan'),
+            'kro' => $this->input->post('kro'),
+            'ro' => $this->input->post('ro'),
+            'komponen' => $this->input->post('komponen'),
+            'satuan' => $this->input->post('satuan'),
+            'qty' => $this->input->post('qty'),
+            'subtotal' => $subtotal,
+            'total' =>$total,
+			'id_pengajuan'=> $id_pengajuan
+        );
+		
+		$this->pengajuan_model->tambah_itemprov($data_item);
+
+		$data_pengajuan = $this->db->select('anggaran')
+		->from('pengajuan_provinsi')
+		->where('id_pengajuan', $id_pengajuan)
+		->get()
+		->row_array();
+		
+		$data = [
+			'anggaran' => $data_pengajuan['anggaran'] + $total
+		];
+		$this->db->where('id_pengajuan', $id_pengajuan);
+		$this->db->update('pengajuan_provinsi', $data);
+		redirect('provinsi/editpengajuan/'.$id_pengajuan);
+	}
+	
 }
