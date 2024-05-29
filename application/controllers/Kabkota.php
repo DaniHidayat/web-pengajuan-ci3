@@ -21,6 +21,7 @@ class Kabkota extends CI_Controller {
 	public function index()
 	{
         $data['pengajuan'] = $this->pengajuan_model->get_pengajuan_kab();
+		
         $this->load->view('template/header');
         $this->load->view('template/sidebatkabkota');
         $this->load->view('kabupaten_kota_dashboard',$data);
@@ -83,18 +84,21 @@ class Kabkota extends CI_Controller {
         $this->load->view('template/footer');
 	}
     public function tambah_pengajuan() {
+	
         $id_user = $this->session->userdata('user_id'); // Ambil user_id dari session
-        $kodenama_daerah = $this->input->post('kodenama_daerah');
-    
+        $kodenama_daerah =  $this->session->userdata('ID_KotaKab');
+   
         // Tambahkan log untuk debugging
         log_message('debug', 'User ID: ' . $id_user);
         log_message('debug', 'Kode Nama Daerah: ' . $kodenama_daerah);
     
         if (empty($id_user) || empty($kodenama_daerah)) {
+		
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User tidak ditemukan atau Kode Nama Daerah tidak diisi!</div>');
             redirect('kabkota');
             return;
         }
+	
     
         // Periksa apakah kodenama_daerah valid
         $data_user = $this->db->select('ID_kotakab')
@@ -102,7 +106,7 @@ class Kabkota extends CI_Controller {
             ->where('ID_kotakab', $kodenama_daerah)
             ->get()
             ->row_array();
-    
+		
         // Tambahkan log untuk debugging
         log_message('debug', 'Data User: ' . print_r($data_user, true));
     
@@ -112,6 +116,7 @@ class Kabkota extends CI_Controller {
             return;
         }
     
+	
         // Ambil data pengajuan dari input form
         $data_pengajuan = array(
             'kodenama_daerah' => $kodenama_daerah,
@@ -125,15 +130,17 @@ class Kabkota extends CI_Controller {
     
         // Jika file_bukti gagal diunggah
         if ($data_pengajuan['file_bukti'] === false) {
+		
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal mengunggah berkas!</div>');
             redirect('Kabkota');
             return;
         }
-    
+    	
         // Mulai transaksi
         $this->db->trans_start();
         $id_pengajuan = $this->pengajuan_model->tambah_pengajuan_kabkota($data_pengajuan);
-    
+		
+	
         // Tambahkan log untuk debugging
         log_message('debug', 'ID Pengajuan: ' . $id_pengajuan);
     

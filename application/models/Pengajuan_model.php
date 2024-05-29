@@ -137,16 +137,22 @@ class Pengajuan_model extends CI_Model {
     }
     public function get_pengajuan_kab() {
         $id_provinsi = $this->session->userdata('ID_Provinsi');
-        if (!$id_provinsi) {
-            return array(); // atau lempar kesalahan jika sesi ID_Provinsi tidak tersedia
-        }
+		$id_Kab = $this->session->userdata('ID_KotaKab');
+        // if (!$id_provinsi) {
+        //     return array(); // atau lempar kesalahan jika sesi ID_Provinsi tidak tersedia
+        // }
     
         $this->db->select('pengajuan_kabkota.*, SUM(import.total) as anggaran, provinsi.Nama_Provinsi, kota_kabupaten.ID_kotakab, kota_kabupaten.Nama_KotaKab');
         $this->db->from('pengajuan_kabkota');
         $this->db->join('import', 'import.id_pengajuan = pengajuan_kabkota.id_pengajuan', 'left');
         $this->db->join('provinsi', 'pengajuan_kabkota.kodenama_daerah = provinsi.ID_Provinsi', 'left');
         $this->db->join('kota_kabupaten', 'pengajuan_kabkota.kodenama_daerah = kota_kabupaten.ID_Provinsi', 'left');
-        $this->db->where('pengajuan_kabkota.kodenama_daerah', $id_provinsi);
+		if($this->session->userdata('role') == 'kabupaten_kota'){
+			$this->db->where('pengajuan_kabkota.kodenama_daerah', $id_Kab);
+		}else if($this->session->userdata('role') == 'provinsi'){
+			$this->db->where('pengajuan_kabkota.kodenama_daerah', $id_provinsi);
+		}
+       
         $this->db->group_by('pengajuan_kabkota.id_pengajuan');
     
         $query = $this->db->get();
