@@ -261,7 +261,7 @@ class Provinsi extends CI_Controller
                 }
         
                 // Mendapatkan data user dengan join ke tabel kota_kabupaten berdasarkan ID_Provinsi
-                $data_user = $this->db->select('kab.ID_kotakab')
+                $data_user = $this->db->select('kab.ID_Provinsi')
                     ->from('kota_kabupaten as kab')
                     ->join('users as usr', 'kab.ID_Provinsi = usr.ID_Provinsi', 'left')
                     ->where('usr.ID_Provinsi', $ID_Provinsi)
@@ -269,14 +269,14 @@ class Provinsi extends CI_Controller
                     ->row_array(); 
 					
 					
-                if (empty($data_user) || !isset($data_user['ID_kotakab'])) {
+                if (empty($data_user) || !isset($data_user['ID_Provinsi'])) {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kota/Kabupaten tidak ditemukan untuk provinsi ini!</div>');
                     redirect('provinsi/pengajuan');
                     return;
                 }
         
                 $data_pengajuan = array(
-                    'kodenama_daerah' => $data_user['ID_kotakab'],
+                    'kodenama_daerah' => $data_user['ID_Provinsi'],
                     'Nama_pengajuan' => $this->input->post('Nama_pengajuan'),
                     'tanggal_pengajuan' => $this->input->post('tanggal_pengajuan'),
                     'file_bukti' => $this->_uploadFile(),
