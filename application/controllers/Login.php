@@ -23,6 +23,7 @@ class Login extends CI_Controller {
         if ($user) {
             $this->session->set_userdata('user_id', $user->id);
             $this->session->set_userdata('username', $user->username);
+            $this->session->set_userdata('email', $user->email);
             $this->session->set_userdata('role', $user->role);
             $this->session->set_userdata('ID_Provinsi', $user->ID_Provinsi);
             $this->session->set_userdata('ID_KotaKab', $user->ID_KotaKab);

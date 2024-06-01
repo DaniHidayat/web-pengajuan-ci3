@@ -6,5 +6,16 @@ class User_model extends CI_Model {
         $query = $this->db->get('users');
         return $query->row();
     }
+	public function update_user($id, $data)
+    {
+        $this->db->where('id', $id);
+        return $this->db->update('users', $data);
+    }
+	public function get_user_by_id($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('users');
+        return $query->row();
+    }
 }
 ?>
