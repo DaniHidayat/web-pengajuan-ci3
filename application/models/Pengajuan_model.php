@@ -9,10 +9,18 @@ class Pengajuan_model extends CI_Model {
             $this->db->where('id_pengajuan', $id_pengajuan);
             $this->db->delete('import');
         }
+        public function hapus_import_data_by_pengajuanprov($id_pengajuan) {
+            $this->db->where('id_pengajuan', $id_pengajuan);
+            $this->db->delete('import_prov');
+        }
     
         public function hapus_pengajuan_kabkota($id_pengajuan) {
             $this->db->where('id_pengajuan', $id_pengajuan);
             $this->db->delete('pengajuan_kabkota');
+        }
+        public function hapus_pengajuan_provinsi($id_pengajuan) {
+            $this->db->where('id_pengajuan', $id_pengajuan);
+            $this->db->delete('pengajuan_provinsi');
         }
         public function tambah_pengajuan_prov($data) {
              $this->db->insert('pengajuan_provinsi', $data);
@@ -34,6 +42,9 @@ class Pengajuan_model extends CI_Model {
        
 		public function tambah_item($data_item) {
             return $this->db->insert('import', $data_item);
+        }
+        public function tambah_itemprov($data_item) {
+            return $this->db->insert('import_prov', $data_item);
         }
     
         public function checkImportStatus($id_pengajuan) {
@@ -218,6 +229,18 @@ class Pengajuan_model extends CI_Model {
 public function get_data_for_download($id_pengajuan) {
     $this->db->select('Program, Kegiatan, KRO, RO, Komponen, Satuan, Qty, subtotal, total');
     $this->db->from('import'); // Gantilah 'import' dengan nama tabel yang sesuai
+    $this->db->where('id_pengajuan', $id_pengajuan);
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0) {
+        return $query->result();
+    } else {
+        return false; // Kembalikan false jika data tidak ditemukan
+    }
+}
+public function get_data_for_downloadprov($id_pengajuan) {
+    $this->db->select('Program, Kegiatan, KRO, RO, Komponen, Satuan, Qty, subtotal, total');
+    $this->db->from('import_prov'); // Gantilah 'import' dengan nama tabel yang sesuai
     $this->db->where('id_pengajuan', $id_pengajuan);
     $query = $this->db->get();
 

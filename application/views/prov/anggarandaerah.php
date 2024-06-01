@@ -65,7 +65,7 @@
                                             <td><?= $item['Nama_pengajuan'] ?></a></td>
                                             <td><?= $item['anggaran'] ?></td>
                                             <td>
-                                                <a href="<?= base_url('kabkota/lihatBerkas/' . $item['id_pengajuan']) ?>"
+                                                <a href="<?= base_url('provinsi/lihatBerkas/' . $item['id_pengajuan']) ?>"
                                                     target="_blank" class="text-info">lihat berkas</a>
                                             </td>
                                             <td>
@@ -89,7 +89,7 @@
                                                     Pengajuan</a>
                                                 <a href="<?= base_url('Provinsi/editanggaran/'.$item['id_pengajuan']) ?>"
                                                     class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Edit</a>
-                                                <a href="<?= base_url('Provinsi/hapusanggaran/'.$item['id_pengajuan']) ?>"
+                                                <a href="<?= base_url('Provinsi/hapuspengajuan/'.$item['id_pengajuan']) ?>"
                                                     class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Hapus</a>
                                             </td>
                                         </tr>
