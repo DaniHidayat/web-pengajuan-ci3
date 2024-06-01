@@ -520,7 +520,7 @@ class Kabkota extends CI_Controller {
             $user_id = $this->session->userdata('user_id'); // Pastikan Anda menyimpan user_id di sesi
 
             $user = $this->user_model->get_user_by_id($user_id);
-
+			//NEw
             if ($user && $current_password && $user->password) {
                 $data = array(
                     'password' => $new_password
