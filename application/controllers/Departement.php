@@ -46,7 +46,7 @@ class Departement extends CI_Controller {
         $data['pengajuan'] = $this->pengajuan_model->get_pengajuan_departement();
         $this->load->view('template/header');
         $this->load->view('template/sidebardepartement');
-        $this->load->view('departemen/pengajuan',$data);
+        $this->load->view('departemen/Pengajuan',$data);
         $this->load->view('template/footer');
 	}
     public function anggaran()
