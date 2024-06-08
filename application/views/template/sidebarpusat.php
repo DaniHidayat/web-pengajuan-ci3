@@ -47,6 +47,12 @@
                         <i class="bi bi-circle"></i><span>Kab/Kota</span>
                     </a>
                 </li>
+                <li>
+                    <a href="<?= base_url('Pusat/anggarandept
+') ?>">
+                        <i class="bi bi-circle"></i><span>Departement</span>
+                    </a>
+                </li>
 
             </ul>
         </li><!-- End Charts Nav -->

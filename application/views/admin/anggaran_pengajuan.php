@@ -48,7 +48,9 @@
                                         <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Kode/Nama Daerah</th>
+                                            <th scope="col">Nama pengajuan</th>
                                             <th scope="col">Nilai Anggaran</th>
+
                                             <th scope="col">Status</th>
                                             <th scope="col">Keterangan</th>
                                             <th scope="col">Aksi</th>
@@ -58,8 +60,16 @@
                                         <?php foreach ($pengajuan as $key => $item): ?>
                                         <tr>
                                             <td><?php echo $key + 1; ?></td>
-                                            <td><?php echo $item['kode_daerah']; ?></td>
-                                            <td><a href="#" class="text-info"><?php echo $item['nilai_anggaran']; ?></a>
+                                            <td><?php echo $item['Nama_Provinsi']; ?></td>
+                                            <td><?php echo $item['Nama_pengajuan']; ?></td>
+
+                                            <td> <?php 
+												if ($item['anggaran'] !== null) {
+													echo 'Rp.' . number_format($item['anggaran'], 0, ',', '.'); 
+												} else {
+													echo 'N/A'; // atau teks atau nilai default lainnya
+												}
+											?></a>
                                             </td>
                                             <td> <?php if ($item['status'] == 'Approved'): ?>
                                                 <span class="badge bg-success"><?php echo $item['status']; ?></span>
@@ -74,11 +84,12 @@
                                             </td>
                                             <td><?php echo $item['keterangan']; ?></td>
                                             <td>
-                                                <a href="<?= base_url('Admin/wilayah') ?>"
+                                                <a href="<?= base_url('pusat/lihatpengajuan/'.$item['id_pengajuan']) ?>"
                                                     class="btn btn-info btn-sm"><i class="bi bi-eye"></i> View</a>
-                                                <!-- <a href="<?= base_url('pusat/editpengajuan') ?>"
-                                                    class="btn btn-warning btn-sm">Edit</a> -->
-                                                <a href="#" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i>
+                                                <a href="<?= base_url('pusat/editanggaran/'.$item['id_pengajuan']) ?>"
+                                                    class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="<?= base_url('pusat/hapuspengajuan2/'.$item['id_pengajuan']) ?>"
+                                                    class="btn btn-danger btn-sm"><i class="bi bi-trash"></i>
                                                     Hapus</a>
                                             </td>
                                         </tr>

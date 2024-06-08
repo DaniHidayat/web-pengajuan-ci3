@@ -48,9 +48,9 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col">Kode/Nama Daerah</th>
                                             <th scope="col">Nama pengajuan</th>
                                             <th scope="col">Jumlah Anggaran Keseluruhan</th>
+                                            <th scope="col">tanggal pengajuan</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Keterangan</th>
                                             <th scope="col">Aksi</th>
@@ -60,10 +60,9 @@
                                         <?php foreach ($pengajuan as $key => $item): ?>
                                         <tr>
                                             <th scope="row"><?php echo $key + 1; ?></th>
-                                            <td><?php echo $item['Nama_KotaKab']; ?></td>
-                                            <td><a href="#"
-                                                    class="text-info"><?= isset($item['Nama_KotaKab']) ? $item['Nama_KotaKab'] : 'Nama kota/kab tidak tersedia'; ?></a>
-                                            </td>
+
+
+                                            <td><?php echo $item['Nama_pengajuan']; ?></td>
 
                                             <td>
                                                 <?php 
@@ -74,7 +73,7 @@
 												}
 											?>
                                             </td>
-
+                                            <td><?php echo $item['tanggal_pengajuan']; ?></td>
 
                                             <td>
                                                 <span class="badge bg-<?php 

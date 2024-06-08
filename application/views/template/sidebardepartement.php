@@ -19,12 +19,12 @@
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
                 <li>
-                    <a href="<?= base_url('departemen/akunprov') ?>">
+                    <a href="<?= base_url('departement/akunprov') ?>">
                         <i class="bi bi-circle"></i><span>Akun provinsi</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?= base_url('departemen/akunkabkota') ?>">
+                    <a href="<?= base_url('departement/akunkabkota') ?>">
                         <i class="bi bi-circle"></i><span>Akun kab/kota</span>
                     </a>
                 </li>
@@ -37,31 +37,33 @@
             </a>
             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="<?= base_url('departemen/anggaran') ?>">
+                    <a href="<?= base_url('departement/anggaran') ?>">
                         <i class="bi bi-circle"></i><span>Provinsi</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?= base_url('departemen/anggarankabkota
-') ?>">
+                    <a href="<?= base_url('departement/anggarankabkota') ?>">
                         <i class="bi bi-circle"></i><span>Kab/Kota</span>
                     </a>
                 </li>
 
             </ul>
         </li><!-- End Charts Nav -->
-
-        <li class="nav-heading">Pages</li>
-
         <li class="nav-item">
-            <a class="nav-link collapsed" href="<?= base_url('departemen/Profile') ?>">
+            <a class="nav-link " href="<?= base_url('departement/anggaranpribadi') ?>">
+                <i class="bi bi-grid"></i>
+                <span>Ajukan Anggaran</span>
+            </a>
+        </li>
+        <li class="nav-heading">Pages</li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="<?= base_url('departement/Profile') ?>">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>
-        </li><!-- End Profile Page Nav -->
-
+        </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="<?= base_url('departemen/faq') ?>">
+            <a class="nav-link collapsed" href="<?= base_url('departement/faq') ?>">
                 <i class="bi bi-question-circle"></i>
                 <span>F.A.Q</span>
             </a>
@@ -69,7 +71,7 @@
 
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="<?= base_url('departemen/logout') ?>">
+            <a class="nav-link collapsed" href="<?= base_url('departement/logout') ?>">
                 <i class="bi bi-box-arrow-in-right"></i>
                 <span>Logout</span>
             </a>

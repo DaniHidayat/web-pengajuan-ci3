@@ -1,11 +1,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Pengajuan Anggaran wilayah jawabarat</h1>
+        <h1>Pengajuan Anggaran </h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">status Pengajuan Anggaran di wilayah jawa barat</li>
+                <li class="breadcrumb-item active">status Pengajuan Anggaran </li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -51,7 +51,7 @@
                                             <th scope="col">Kode/Nama Daerah</th>
                                             <th scope="col">Nama pengajuan</th>
                                             <th scope="col">Jumlah Anggaran Keseluruhan</th>
-                                            <th scope="col">Berkas</th>
+                                            <th scope="col">tanggal</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Keterangan</th>
                                             <th scope="col">Aksi</th>
@@ -63,10 +63,15 @@
                                             <th scope="row"><?= $key + 1 ?></th>
                                             <td><?= $item['Nama_kotaKab'] ?></td>
                                             <td><?= $item['Nama_pengajuan'] ?></a></td>
-                                            <td><?= $item['anggaran'] ?></td>
+                                            <td><?php 
+												if ($item['anggaran'] !== null) {
+													echo 'Rp.' . number_format($item['anggaran'], 0, ',', '.'); 
+												} else {
+													echo 'N/A'; // atau teks atau nilai default lainnya
+												}
+											?></a></td>
                                             <td>
-                                                <a href="<?= base_url('provinsi/lihatBerkas/' . $item['id_pengajuan']) ?>"
-                                                    target="_blank" class="text-info">lihat berkas</a>
+                                                <?= $item['tanggal_pengajuan'] ?>
                                             </td>
                                             <td>
                                                 <span class="badge bg-<?php 

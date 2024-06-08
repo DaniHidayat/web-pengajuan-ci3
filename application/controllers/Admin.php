@@ -184,15 +184,23 @@ class Admin extends CI_Controller {
 	}
     public function anggaran()
 	{
-                $data['pengajuan'] = $this->pengajuan_model->get_pengajuan_anggaran();
+        $data['pengajuan'] = $this->pengajuan_model->get_pengajuan_anggaran();
         $this->load->view('template/header');
         $this->load->view('template/sidebarsuperadmin');
         $this->load->view('admin/anggaran_pengajuan',$data);
         $this->load->view('template/footer');
 	}
+    public function anggarandept()
+	{
+                $data['pengajuan'] = $this->pengajuan_model->get_pengajuan_anggarandepartement();
+        $this->load->view('template/header');
+        $this->load->view('template/sidebarpusat');
+        $this->load->view('pusat/anggaran_pengajuan2',$data);
+        $this->load->view('template/footer');
+	}
     public function anggarankabkota()
 	{
-        $data['pengajuan_kabkota'] = $this->pengajuan_model->get_pengajuan_anggarankab();
+        $data['pengajuan'] = $this->pengajuan_model->get_pengajuan_anggarankabkota();
         $this->load->view('template/header');
         $this->load->view('template/sidebarsuperadmin');
         $this->load->view('admin/anggaran_pengajuan1',$data);

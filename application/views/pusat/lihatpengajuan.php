@@ -4,8 +4,8 @@
         <h1>Anggaran</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Detail Pengajuan Anggaran</li>
+                <li class="breadcrumb-item"><a href="<?= base_url('pusat/anggarandaerah') ?>">Home</a></li>
+                <li class="breadcrumb-item active">Status Pengajuan Anggaran</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -17,163 +17,86 @@
             <div class="col-lg-12">
                 <div class="row">
 
-
                     <!-- Recent Sales -->
                     <div class="col-12">
                         <div class="card recent-sales overflow-auto">
-
-
-
                             <div class="card-body">
-                                <h5 class="card-title">Pengajuan</h5>
+                                <h5 class="card-title">Detail<span>| Pengajuan</span></h5>
 
                                 <div class="d-flex justify-content-end mb-3">
-                                    <!-- <a href="<?= base_url('Kabkota/tambahitem') ?>" type="button"
-                                        class="btn btn-success" data-toggle="modal" data-target="#addModal"><i
-                                            class="bi bi-plus"></i>Tambah
+                                    <!-- <a href="<?= base_url('departement/tambahitem?id_pengajuan='.$id_pengajuan) ?>"
+                                        type="button" class="btn btn-success mx-3" data-toggle="modal"
+                                        data-target="#addModal"><i class="bi bi-plus"></i>Tambah
                                         item</a> -->
-                                    <!-- <button type="button" class="btn btn-info ml-2"><i class="bi bi-save"></i>
-                                        Simpan</button> -->
-                                    <a href="<?= base_url('Pusat/anggarankabkota') ?>" type="button"
+                                    <a href="<?= base_url('pusat/anggaran') ?>" type="button"
                                         class="btn btn-secondary ml-2"><i class="bi bi-arrow-left"></i>
                                         Kembali</a>
                                 </div>
 
-                                <table class="table table-borderless datatable">
+                                <?php if (!empty($import_prov)) : ?>
+                                <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Program</th>
-                                            <th scope="col">Kegiatan</th>
-                                            <th scope="col">KRO</th>
-                                            <th scope="col">RO</th>
-                                            <th scope="col">Komponen</th>
-                                            <th scope="col">Satuan</th>
-                                            <th scope="col">Qty</th>
-                                            <th scope="col">subtotal</th>
-                                            <th scope="col">total</th>
-                                            <th scope="col">Aksi</th>
+                                            <th>No</th>
+                                            <th>Program</th>
+                                            <th>Kegiatan</th>
+                                            <th>KRO</th>
+                                            <th>RO</th>
+                                            <th>Komponen</th>
+                                            <th>Satuan</th>
+                                            <th>Qty</th>
+                                            <th>Subtotal</th>
+                                            <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php foreach ($import_prov as $index => $row): ?>
                                         <tr>
-                                            <th scope="row"><a href="#">1</a></th>
-                                            <td>
-                                                <select class="select2" name="komponen">
-                                                    <option value="Habis pakai">04664-Habis pakai</option>
-                                                    <option value="Lainnya">Lainnya</option>
-                                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class="select2" name="kelompok">
-                                                    <option value="Bahan">A.04664-Bahan</option>
-                                                    <option value="Komponen">Komponen</option>
-                                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class="select2" name="item">
-                                                    <option value="Rfid">A.04664-AB-Rfid</option>
-                                                    <option value="Lainnya">Lainnya</option>
-                                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select name="item">
-                                                    <option value="Rfid">umrah</option>
-                                                    <option value="Lainnya">Lainnya</option>
-                                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select name="komponen">
-                                                    <option value="Rfid">komponen 1</option>
-                                                    <option value="Lainnya">Lainnya</option>
-                                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                                </select>
-                                            </td>
-                                            <td>Lembaga</td>
-                                            <td>1</td>
-                                            <td>5000</td>
-                                            <td>10,000</td>
-                                            <td>
-
-                                                <a href="#" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i>
-                                                    Hapus</a>
-                                            </td>
+                                            <td><?= $index + 1 ?></td>
+                                            <td><?= $row->Program ?></td>
+                                            <td><?= $row->Kegiatan ?></td>
+                                            <td><?= $row->KRO ?></td>
+                                            <td><?= $row->RO ?></td>
+                                            <td><?= $row->Komponen ?></td>
+                                            <td><?= $row->Satuan ?></td>
+                                            <td><?= $row->Qty ?></td>
+                                            <td><?= $row->subtotal ?></td>
+                                            <td><?= $row->total ?></td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">1</a></th>
-                                            <td>
-                                                <select class="select2" name="komponen">
-                                                    <option value="Habis pakai">04664-Habis pakai</option>
-                                                    <option value="Lainnya">Lainnya</option>
-                                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class="select2" name="kelompok">
-                                                    <option value="Bahan">A.04664-Bahan</option>
-                                                    <option value="Komponen">Komponen</option>
-                                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class="select2" name="item">
-                                                    <option value="Rfid">A.04664-AB-Rfid</option>
-                                                    <option value="Lainnya">Lainnya</option>
-                                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select name="item">
-                                                    <option value="Rfid">umrah</option>
-                                                    <option value="Lainnya">Lainnya</option>
-                                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select name="komponen">
-                                                    <option value="Rfid">komponen 1</option>
-                                                    <option value="Lainnya">Lainnya</option>
-                                                    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                                </select>
-                                            </td>
-                                            <td>Lembaga</td>
-                                            <td>1</td>
-                                            <td>5000</td>
-                                            <td>10,000</td>
-                                            <td>
-
-                                                <a href="#" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i>
-                                                    Hapus</a>
-                                            </td>
-                                        </tr>
-                                        <!-- Tambahkan baris lain di sini -->
+                                        <?php endforeach; ?>
                                     </tbody>
-
                                 </table>
+                                <div class="text-right mt-3">
+                                    <?php if(isset($id_pengajuan)): ?>
+                                    <a href="<?= base_url('pusat/downloadData/' . $id_pengajuan) ?>"
+                                        class="btn btn-info">Download Data</a>
+                                    <?php else: ?>
+                                    <p>ID Pengajuan tidak ditemukan. Tidak dapat mengunduh data.</p>
+                                    <?php endif; ?>
+                                </div>
+
+                                <?php else : ?>
+                                <p>Data tidak tersedia.</p>
+                                <?php endif; ?>
 
                             </div>
 
                         </div>
                     </div><!-- End Recent Sales -->
 
-
-
-
                 </div>
             </div><!-- End Left side columns -->
-
 
         </div>
     </section>
 
 </main><!-- End #main -->
+
+<!-- Include the Select2 JS and CSS files -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
 
+<!-- Initialize Select2 -->
 <script>
 $(document).ready(function() {
     $('.select2').select2({

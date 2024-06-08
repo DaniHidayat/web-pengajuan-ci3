@@ -1,7 +1,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Form Tambah Akun</h1>
+        <h1>Form Tambah Akun Provinsi</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -23,7 +23,7 @@
                             <div class="card-body">
 
                                 <!-- Form -->
-                                <form action="<?php echo site_url('Accountpusat/registerprov'); ?>" method="post">
+                                <form action="<?php echo site_url('accountpusat/registerprov'); ?>" method="post">
                                     <br>
 
                                     <!-- Pesan sukses atau gagal -->
@@ -32,7 +32,7 @@
                                     <?php endif; ?>
 
                                     <div class="mb-3">
-                                        <label for="name_prov" class="form-label">kodedaerah/Nama</label>
+                                        <label for="name_prov" class="form-label">Nama Oprator</label>
                                         <input type="text" class="form-control" id="name_prov" name="name_prov"
                                             required>
                                     </div>
@@ -51,6 +51,16 @@
                                         <label for="password" class="form-label">Password</label>
                                         <input type="password" class="form-control" id="password" name="password"
                                             required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="province" class="form-label">Provinsi</label>
+                                        <select class="form-select" id="province" name="province" required>
+                                            <option value="">Pilih Provinsi</option>
+                                            <?php foreach ($provinces as $province): ?>
+                                            <option value="<?php echo $province->ID_Provinsi; ?>">
+                                                <?php echo $province->Nama_Provinsi; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
 
                                     <div class="d-grid gap-2">

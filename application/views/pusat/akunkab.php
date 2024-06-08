@@ -59,9 +59,9 @@
                                     <td><?php echo $users['role']; ?></td>
                                     <td>
 
-                                        <a href="<?php echo site_url('Admin/editkab/'.$users['id']); ?>"
+                                        <a href="<?php echo site_url('pusat/editkab/'.$users['id']); ?>"
                                             class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                                        <a href="<?php echo site_url('Admin/deletekab/'.$users['id']); ?>"
+                                        <a href="<?php echo site_url('pusat/deletekab/'.$users['id']); ?>"
                                             class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete</a>
                                     </td>
                                 </tr>

@@ -1,11 +1,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Pengajuan Anggaran kab/kota</h1>
+        <h1>Pengajuan Anggaran Daerah</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Status Pengajuan Anggaran di Wilayah Tiap Daerah</li>
+                <li class="breadcrumb-item active">status Pengajuan Anggaran daerah</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -51,7 +51,7 @@
                                             <th scope="col">Kode/Nama Daerah</th>
                                             <th scope="col">Nama pengajuan</th>
                                             <th scope="col">Jumlah Anggaran Keseluruhan</th>
-                                            <th scope="col">Berkas</th>
+                                            <th scope="col">Tanggal pengajuan</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Keterangan</th>
                                             <th scope="col">Aksi</th>
@@ -61,11 +61,14 @@
                                         <?php foreach ($pengajuan as $key => $item): ?>
                                         <tr>
                                             <th scope="row"><?= $key + 1 ?></th>
-                                            <td><?= $item['kodenama_daerah'] ?></td>
+                                            <td><?= $item['Nama_KotaKab'] ?></td>
                                             <td><?= $item['Nama_pengajuan'] ?></a></td>
-                                            <td><?php echo 'Rp.' . number_format($item['anggaran'], 0, ',', '.'); ?>
-                                            </td>
-                                            <td><a href="#" class="text-info">lihat berkas</td>
+                                            <td><?= $item['anggaran'] ?></td>
+                                            <td><?= $item['tanggal_pengajuan'] ?></td>
+                                            <!-- <td>
+                                                <a href="<?= base_url('Departement/lihatBerkas1/' . $item['id_pengajuan']) ?>"
+                                                    target="_blank" class="text-info">lihat berkas</a>
+                                            </td> -->
                                             <td>
                                                 <span class="badge bg-<?php 
         if ($item['status'] == 'Pending') {
@@ -82,12 +85,12 @@
 
                                             <td><?= $item['keterangan'] ?></td>
                                             <td>
-                                                <a href="<?= base_url('Pusat/lihatpengajuan') ?>"
-                                                    class="btn btn-info btn-sm"><i class="bi bi-eye"></i>Lihat
+                                                <a href="<?= base_url('pusat/lihatpengajuan1/'.$item['id_pengajuan']) ?>"
+                                                    class="btn btn-info btn-sm"><i class="bi bi-eye"></i> Lihat
                                                     Pengajuan</a>
-                                                <!-- <a href="<?= base_url('Provinsi/editanggaran/'.$item['id']) ?>"
+                                                <!-- <a href="<?= base_url('pusat/editanggaran1/'.$item['id_pengajuan']) ?>"
                                                     class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Edit</a> -->
-                                                <a href="<?= base_url('Pusat/hapusanggaran/'.$item['id']) ?>"
+                                                <a href="<?= base_url('pusat/hapuspengajuan1/'.$item['id_pengajuan']) ?>"
                                                     class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Hapus</a>
                                             </td>
                                         </tr>

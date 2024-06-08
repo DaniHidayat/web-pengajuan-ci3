@@ -28,7 +28,7 @@
                             <?php echo $this->session->flashdata('error'); ?>
                         </div>
                         <?php endif; ?> -->
-                        <h5 class="card-title">Akun Provinsi</h5>
+                        <h5 class="card-title">Akun kota/kabupaten</h5>
                         <!-- Table with stripped rows -->
                         <div class="mb-3">
                             <a href="<?php echo site_url('accountprov/addkab'); ?>" type="button"
@@ -39,8 +39,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">kodedaerah/Nama</th>
-                                    <th scope="col">Wilayah</th>
+                                    <th scope="col">Nama Daerah</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Username</th>
                                     <th scope="col">role</th>
@@ -53,12 +52,10 @@
                                 <tr>
                                     <td><?php echo $key + 1; ?></td>
                                     <td><?php echo $users['name']; ?></td>
-                                    <td><?php echo $users['wilayah']; ?></td>
                                     <td><?php echo $users['email']; ?></td>
                                     <td><?php echo $users['username']; ?></td>
                                     <td><?php echo $users['role']; ?></td>
                                     <td>
-
                                         <a href="<?php echo site_url('Provinsi/editkab/'.$users['id']); ?>"
                                             class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                         <a href="<?php echo site_url('Provinsi/deletekab/'.$users['id']); ?>"

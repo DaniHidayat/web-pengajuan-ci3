@@ -32,7 +32,7 @@
                                     <?php endif; ?>
 
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">kodedaerah/Nama</label>
+                                        <label for="name" class="form-label">nama</label>
                                         <input type="text" class="form-control" id="name" name="name" required>
                                     </div>
 
@@ -53,20 +53,30 @@
                                     </div>
                                     <!-- Dropdown wilayah -->
                                     <div class="mb-3">
-                                        <label for="wilayah" class="form-label">Wilayah</label>
-                                        <select class="form-select" id="wilayah" name="wilayah" required>
-                                            <option value="">Pilih Wilayah</option>
-                                            <?php foreach ($wilayah as $row): ?>
-                                            <option><?= $row['name_prov'] ?>
-                                            </option>
+                                        <label for="province" class="form-label">Provinsi</label>
+                                        <select class="form-select" id="province" name="province" required
+                                            onchange="getCities()">
+                                            <option value="">Pilih Provinsi</option>
+                                            <?php foreach ($provinces as $province): ?>
+                                            <option value="<?php echo $province->ID_Provinsi; ?>">
+                                                <?php echo $province->Nama_Provinsi; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label for="city" class="form-label">Kota/Kabupaten</label>
+                                        <select class="form-select" id="city" name="city" required>
+                                            <option value="">Pilih Kota/Kabupaten</option>
+                                        </select>
+                                    </div>
+
+
                                     <!-- End Dropdown wilayah -->
 
                                     <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-info">Buat akun kab/kota</button>
-                                        <a href="<?= base_url('Pusat/akunkabkota') ?>"
+                                        <button type="submit" class="btn btn-info">Buat Akun kab/kota</button>
+                                        <a href="<?= base_url('pusat/akunkabkota') ?>"
                                             class="btn btn-secondary">Kembali</a>
                                     </div>
 
@@ -83,4 +93,4 @@
         </div>
     </section>
 
-</main><!-- End #main -->
+</main>

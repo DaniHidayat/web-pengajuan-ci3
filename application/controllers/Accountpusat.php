@@ -8,6 +8,7 @@ class Accountpusat extends CI_Controller {
         $this->load->model('account_model');
     }
     public function addprov() {
+        $data['provinces'] = $this->account_model->get_provinces();
         $data['message'] = $this->session->flashdata('message');
         $this->load->view('template/header');
         $this->load->view('template/sidebarpusat');
@@ -15,7 +16,7 @@ class Accountpusat extends CI_Controller {
         $this->load->view('template/footer');
     }
     public function addkab() {
-        $data['message'] = $this->session->flashdata('message');
+        $data['provinces'] = $this->account_model->get_provinces();
         $data['wilayah'] = $this->account_model->get_wilayah();
         $this->load->view('template/header');
         $this->load->view('template/sidebarpusat');
@@ -28,6 +29,7 @@ class Accountpusat extends CI_Controller {
         $name_prov = $this->input->post('name_prov');
         $email = $this->input->post('email');
         $username = $this->input->post('username');
+        $province_id = $this->input->post('province');
         $password = $this->input->post('password');
 
         // Menambahkan role 'pusat' ke dalam data
@@ -35,7 +37,8 @@ class Accountpusat extends CI_Controller {
             'name_prov' => $name_prov,
             'email' => $email,
             'username' => $username,
-            'password' => password_hash($password, PASSWORD_DEFAULT), // Enkripsi password sebelum disimpan
+            'ID_Provinsi' => $province_id,
+            'password' => $password,  // Enkripsi password sebelum disimpan
             'role' => 'provinsi' // Menambahkan role 'pusat'
         );
 
@@ -59,7 +62,9 @@ class Accountpusat extends CI_Controller {
         $name = $this->input->post('name');
         $email = $this->input->post('email');
         $username = $this->input->post('username');
-        $wilayah = $this->input->post('wilayah');
+        // $wilayah = $this->input->post('wilayah');
+        $province_id = $this->input->post('province');
+        $kabkota_id= $this->input->post('city');
         $password = $this->input->post('password');
 
         // Menambahkan role 'pusat' ke dalam data
@@ -67,9 +72,11 @@ class Accountpusat extends CI_Controller {
             'name' => $name,
             'email' => $email,
             'username' => $username,
-            'wilayah' => $wilayah,
-            'password' => password_hash($password, PASSWORD_DEFAULT), // Enkripsi password sebelum disimpan
-            'role' => 'kabupaten_kota' // Menambahkan role 'pusat'
+            // 'wilayah' => $wilayah,
+            'password' => $password, // Enkripsi password sebelum disimpan
+            'role' => 'kabupaten_kota', // Menambahkan role 'pusat'
+            'ID_Provinsi' => $province_id,
+            'ID_KotaKab' => $kabkota_id
         );
 
         // Panggil model untuk menyimpan data ke dalam database
