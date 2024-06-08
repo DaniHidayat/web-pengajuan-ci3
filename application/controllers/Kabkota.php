@@ -88,8 +88,7 @@ class Kabkota extends CI_Controller {
 	}
     public function tambah_pengajuan() {
 	
-        print_r($_FILES);
-        exit();
+       
         $id_user = $this->session->userdata('user_id'); // Ambil user_id dari session
         $kodenama_daerah =  $this->session->userdata('ID_KotaKab');
    
