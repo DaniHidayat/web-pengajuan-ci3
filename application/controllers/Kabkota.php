@@ -131,7 +131,8 @@ class Kabkota extends CI_Controller {
             'tanggal_pengajuan' => $this->input->post('tanggal_pengajuan'),
             'file_bukti' => $this->_uploadFile(),
         );
-    
+        print_r($data_pengajuan);
+        exit();
         // Tambahkan log untuk debugging
         log_message('debug', 'Data Pengajuan: ' . print_r($data_pengajuan, true));
     
