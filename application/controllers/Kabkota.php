@@ -133,7 +133,8 @@ class Kabkota extends CI_Controller {
     
         // Jika file_bukti gagal diunggah
         if ($data_pengajuan['file_bukti'] === false) {
-		
+            print_r('errorda ');
+            exit();
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal mengunggah berkas!</div>');
             redirect('Kabkota');
             return;
