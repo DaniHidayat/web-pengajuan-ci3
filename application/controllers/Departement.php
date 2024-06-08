@@ -6,12 +6,12 @@ class Departement extends CI_Controller {
                 parent::__construct();
                 $this->load->model('account_model');
                 $this->load->model('pengajuan_model');
-                $this->load->model('program_model');
-				$this->load->model('kegiatan_model');
-				$this->load->model('kro_model');
-				$this->load->model('ro_model');
-				$this->load->model('komponen_model');
-				$this->load->model('satuan_model');
+                $this->load->model('Pr_model');
+				$this->load->model('M_Kegiatan');
+				$this->load->model('M_kro');
+				$this->load->model('M_Ro');
+				$this->load->model('M_Komponen');
+				$this->load->model('M_satuan');
                 $this->load->library('session');
                 $this->load->helper(array('form', 'url'));
                 $this->load->library('upload');
@@ -777,12 +777,12 @@ class Departement extends CI_Controller {
             public function tambahitem()
             {
         
-                $data['program'] = $this->program_model->get();
-                $data['kegiatan'] = $this->kegiatan_model->get();
-                $data['kro'] = $this->kro_model->get();
-                $data['ro'] = $this->ro_model->get();
-                $data['komponen'] = $this->komponen_model->get();
-                $data['satuan'] = $this->satuan_model->get();
+                $data['program'] = $this->Pr_model->get();
+				$data['kegiatan'] = $this->M_Kegiatan->get();
+				$data['kro'] = $this->M_kro->get();
+				$data['ro'] = $this->M_Ro->get();
+				$data['komponen'] = $this->M_Komponen->get();
+				$data['satuan'] = $this->M_satuan->get();
                 $this->load->view('template/header');
                 $this->load->view('template/sidebardepartement',$data);
                 $this->load->view('departemen/tambahitem');
