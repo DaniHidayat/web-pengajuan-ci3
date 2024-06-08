@@ -97,8 +97,8 @@ class Kabkota extends CI_Controller {
         log_message('debug', 'Kode Nama Daerah: ' . $kodenama_daerah);
     
         if (empty($id_user) || empty($kodenama_daerah)) {
-            print_r('xxxxx ');
-            exit();
+            // print_r('xxxxx ');
+            // exit();
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User tidak ditemukan atau Kode Nama Daerah tidak diisi!</div>');
             redirect('kabkota');
             return;
@@ -116,8 +116,8 @@ class Kabkota extends CI_Controller {
         log_message('debug', 'Data User: ' . print_r($data_user, true));
     
         if (empty($data_user) || !isset($data_user['ID_kotakab'])) {
-            print_r('rik ');
-            exit();
+            // print_r('rik ');
+            // exit();
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kota/Kabupaten tidak ditemukan!</div>');
             redirect('kabkota');
             return;
@@ -131,15 +131,15 @@ class Kabkota extends CI_Controller {
             'tanggal_pengajuan' => $this->input->post('tanggal_pengajuan'),
             'file_bukti' => $this->_uploadFile(),
         );
-        print_r($data_pengajuan);
-        exit();
+        // print_r($data_pengajuan);
+        // exit();
         // Tambahkan log untuk debugging
         log_message('debug', 'Data Pengajuan: ' . print_r($data_pengajuan, true));
     
         // Jika file_bukti gagal diunggah
         if ($data_pengajuan['file_bukti'] === false) {
-            print_r('errorda ');
-            exit();
+            // print_r('errorda ');
+            // exit();
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal mengunggah berkas!</div>');
             redirect('Kabkota');
             return;
