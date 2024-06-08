@@ -7,12 +7,12 @@ class Kabkota extends CI_Controller {
            
                 $this->load->model('pengajuan_model');
                 $this->load->model('Pr_model');
-				$this->load->model('kegiatan_model');
-				$this->load->model('kro_model');
-				$this->load->model('ro_model');
-				$this->load->model('komponen_model');
-				$this->load->model('satuan_model');
-				$this->load->model('user_model');
+				$this->load->model('Kegiatan_model');
+				$this->load->model('Kro_model');
+				$this->load->model('Ro_model');
+				$this->load->model('Komponen_model');
+				$this->load->model('Satuan_model');
+				$this->load->model('User_model');
                 $this->load->library('upload');
                 $this->load->library('session');
 				$this->load->library('form_validation');
@@ -369,11 +369,11 @@ class Kabkota extends CI_Controller {
             {
 
 				$data['program'] = $this->Pr_model->get();
-				$data['kegiatan'] = $this->kegiatan_model->get();
-				$data['kro'] = $this->kro_model->get();
-				$data['ro'] = $this->ro_model->get();
-				$data['komponen'] = $this->komponen_model->get();
-				$data['satuan'] = $this->satuan_model->get();
+				$data['kegiatan'] = $this->Kegiatan_model->get();
+				$data['kro'] = $this->Kro_model->get();
+				$data['ro'] = $this->Ro_model->get();
+				$data['komponen'] = $this->Komponen_model->get();
+				$data['satuan'] = $this->Satuan_model->get();
                 $this->load->view('template/header');
                 $this->load->view('template/sidebatkabkota',$data);
                 $this->load->view('kota/tambahitem');
