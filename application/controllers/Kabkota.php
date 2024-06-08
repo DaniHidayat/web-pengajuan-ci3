@@ -12,8 +12,11 @@ class Kabkota extends CI_Controller {
 				$this->load->model('ro_model');
 				$this->load->model('komponen_model');
 				$this->load->model('satuan_model');
+				$this->load->model('user_model');
                 $this->load->library('upload');
                 $this->load->library('session');
+				$this->load->library('form_validation');
+				
 				
               // Load PhpSpreadsheet helper
         $this->load->helper('phpspreadsheet');
@@ -403,6 +406,7 @@ class Kabkota extends CI_Controller {
 	}
     public function Profile()
 	{
+		
         $this->load->view('template/header');
         $this->load->view('template/sidebatkabkota');
         $this->load->view('kota/setting');
@@ -471,7 +475,71 @@ class Kabkota extends CI_Controller {
         // Hentikan eksekusi kode lebih lanjut
         exit();
     }
-    
+    public function updateProfile()
+    {
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+
+		$username =  $this->input->post('username');
+		$email =  $this->input->post('email');
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('user_form');
+        } else {
+            $data = array(
+                'username' => $username ,
+                'email' => $email
+            );
+			$id= $this->session->userdata('user_id');
+            $insert = $this->user_model->update_user($id,$data);
+			
+            if ($insert) {
+				$this->session->unset_userdata('username');
+				$this->session->unset_userdata('email');
+				$this->session->set_userdata('username', $username);
+           		$this->session->set_userdata('email', $email);
+                $this->session->set_flashdata('success', 'User data update successfully');
+            } else {
+                $this->session->set_flashdata('error', 'Failed to save user data');
+            }
+
+            redirect('Kabkota/Profile');
+        }
+    }
+	public function change_password()
+    {
+        $this->form_validation->set_rules('current_password', 'Current Password', 'required');
+        $this->form_validation->set_rules('new_password', 'New Password', 'required|min_length[8]');
+        $this->form_validation->set_rules('renew_password', 'Re-enter New Password', 'required|matches[new_password]');
+
+        if ($this->form_validation->run() == FALSE) {
+			$this->load->view('kota/setting');
+        } else {
+            $current_password = $this->input->post('current_password');
+            // $new_password = password_hash($this->input->post('new_password'), PASSWORD_BCRYPT);
+            $new_password = $this->input->post('new_password');
+            $user_id = $this->session->userdata('user_id'); // Pastikan Anda menyimpan user_id di sesi
+
+            $user = $this->user_model->get_user_by_id($user_id);
+			//NEw
+            if ($user && $current_password && $user->password) {
+                $data = array(
+                    'password' => $new_password
+                );
+
+                $update = $this->user_model->update_user($user_id, $data);
+
+                if ($update) {
+                    $this->session->set_flashdata('success', 'Password updated successfully');
+                } else {
+                    $this->session->set_flashdata('error', 'Failed to update password');
+                }
+            } else {
+                $this->session->set_flashdata('error', 'Current password is incorrect');
+            }
+
+            redirect('Kabkota/Profile');
+        }
+    }
     
     
 }
