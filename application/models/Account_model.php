@@ -11,7 +11,7 @@ class Account_model extends CI_Model {
         return $this->db->affected_rows() > 0 ? true : false;
     }
     public function get_provinces() {
-        return $this->db->get('Provinsi')->result();
+        return $this->db->get('provinsi')->result();
     }
     public function get_pusat_users() {
         // Query untuk mengambil data users dengan role 'pusat' dari tabel 'users'

@@ -19,7 +19,8 @@ class Provinsi extends CI_Controller
                 $this->load->library('session');
                 $this->load->helper(array('form', 'url'));
                 $this->load->library('upload');
-                $this->load->helper('phpspreadsheet');
+                // Load PhpSpreadsheet helper
+        $this->load->helper('phpspreadsheet');
         }
         public function index()
         {
