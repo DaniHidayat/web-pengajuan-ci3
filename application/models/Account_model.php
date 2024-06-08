@@ -20,7 +20,7 @@ class Account_model extends CI_Model {
         return $query->result_array(); // Mengembalikan hasil dalam bentuk array
     }
     public function get_cities_by_province($province_id) {
-        return $this->db->get_where('Kota_Kabupaten', array('ID_Provinsi' => $province_id))->result();
+        return $this->db->get_where('kota_kabupaten', array('ID_Provinsi' => $province_id))->result();
     }
     public function get_prov_users() {
         // Query untuk mengambil data users dengan role 'pusat' dari tabel 'users'

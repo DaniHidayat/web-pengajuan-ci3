@@ -23,7 +23,7 @@
                             <div class="card-body">
 
                                 <!-- Form -->
-                                <form action="<?php echo site_url('accountprov/registerkab'); ?>" method="post">
+                                <form action="<?php echo site_url('Accountprov/registerkab'); ?>" method="post">
                                     <br>
 
                                     <!-- Pesan sukses atau gagal -->
