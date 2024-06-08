@@ -88,7 +88,7 @@ class Kabkota extends CI_Controller {
 	}
     public function tambah_pengajuan() {
 	
-        print_r($_POST);
+        print_r($_FILES);
         exit();
         $id_user = $this->session->userdata('user_id'); // Ambil user_id dari session
         $kodenama_daerah =  $this->session->userdata('ID_KotaKab');
@@ -281,7 +281,7 @@ class Kabkota extends CI_Controller {
     private function _uploadFile() {
         $config['upload_path'] = FCPATH . 'uploads/';
         $config['allowed_types'] = 'pdf|doc|docx|xls|xlsx';
-        $config['max_size'] = 2048; // in kilobytes
+        // $config['max_size'] = 2048; // in kilobytes
     
         $this->upload->initialize($config);
     
