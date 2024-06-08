@@ -6,7 +6,7 @@ class Kabkota extends CI_Controller {
                 parent::__construct();
            
                 $this->load->model('pengajuan_model');
-                $this->load->model('Program_model');
+                $this->load->model('Pr_model');
 				$this->load->model('kegiatan_model');
 				$this->load->model('kro_model');
 				$this->load->model('ro_model');
@@ -368,7 +368,7 @@ class Kabkota extends CI_Controller {
             public function tambahitem()
             {
 
-				$data['program'] = $this->Program_model->get();
+				$data['program'] = $this->Pr_model->get();
 				$data['kegiatan'] = $this->kegiatan_model->get();
 				$data['kro'] = $this->kro_model->get();
 				$data['ro'] = $this->ro_model->get();
