@@ -5,13 +5,13 @@ class Accountprov extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('account_model');
+        $this->load->model('Account_model');
     }
 
     public function addkab() {
         $data['message'] = $this->session->flashdata('message');
-        $data['provinces'] = $this->account_model->get_provinces();
-        $data['wilayah'] = $this->account_model->get_wilayah();
+        $data['provinces'] = $this->Account_model->get_provinces();
+        $data['wilayah'] = $this->Account_model->get_wilayah();
         $this->load->view('template/header');
         $this->load->view('template/sidebarprov');
         $this->load->view('prov/add_accountkab', $data);
@@ -42,7 +42,7 @@ class Accountprov extends CI_Controller {
         );
 
         // Panggil model untuk menyimpan data ke dalam database
-        $result = $this->account_model->create_account($data);
+        $result = $this->Account_model->create_account($data);
 
         if ($result) {
             // Set flash data untuk pesan sukses
@@ -58,7 +58,7 @@ class Accountprov extends CI_Controller {
     }
     public function get_cities() {
         $province_id = $this->input->post('province_id');
-        $cities = $this->account_model->get_cities_by_province($province_id);
+        $cities = $this->Account_model->get_cities_by_province($province_id);
         echo json_encode($cities);
     }
 }
