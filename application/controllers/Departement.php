@@ -475,7 +475,7 @@ class Departement extends CI_Controller {
             }
             
             // Debugging
-            error_log("User ID: $id_user, ID Provinsi: $ID_Provinsi");
+            // error_log("User ID: $id_user, ID Provinsi: $ID_Provinsi");
             
             $data_user = $this->db->select('kab.id_dep')
                 ->from('departemen as kab')
