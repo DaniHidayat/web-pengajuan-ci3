@@ -485,7 +485,7 @@ class Departement extends CI_Controller {
                 ->row_array(); 
         
             // Debugging
-            error_log("Data User: " . print_r($data_user, true));
+            // error_log("Data User: " . print_r($data_user, true));
         
             if (empty($data_user) || !isset($data_user['id_dep'])) {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kota/Kabupaten tidak ditemukan untuk provinsi ini!</div>');
