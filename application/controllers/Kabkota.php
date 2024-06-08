@@ -8,8 +8,8 @@ class Kabkota extends CI_Controller {
                 $this->load->model('pengajuan_model');
                 $this->load->model('Pr_model');
 				$this->load->model('M_Kegiatan');
-				$this->load->model('Kro_model');
-				$this->load->model('Ro_model');
+				$this->load->model('M_kro');
+				$this->load->model('M_Ro');
 				$this->load->model('Komponen_model');
 				$this->load->model('Satuan_model');
 				$this->load->model('User_model');
@@ -370,8 +370,8 @@ class Kabkota extends CI_Controller {
 
 				$data['program'] = $this->Pr_model->get();
 				$data['kegiatan'] = $this->M_Kegiatan->get();
-				$data['kro'] = $this->Kro_model->get();
-				$data['ro'] = $this->Ro_model->get();
+				$data['kro'] = $this->M_kro->get();
+				$data['ro'] = $this->M_Ro->get();
 				$data['komponen'] = $this->Komponen_model->get();
 				$data['satuan'] = $this->Satuan_model->get();
                 $this->load->view('template/header');
