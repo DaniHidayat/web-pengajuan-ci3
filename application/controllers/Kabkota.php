@@ -96,7 +96,8 @@ class Kabkota extends CI_Controller {
         log_message('debug', 'Kode Nama Daerah: ' . $kodenama_daerah);
     
         if (empty($id_user) || empty($kodenama_daerah)) {
-		
+            print_r('xxxxx ');
+            exit();
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User tidak ditemukan atau Kode Nama Daerah tidak diisi!</div>');
             redirect('kabkota');
             return;
@@ -114,6 +115,8 @@ class Kabkota extends CI_Controller {
         log_message('debug', 'Data User: ' . print_r($data_user, true));
     
         if (empty($data_user) || !isset($data_user['ID_kotakab'])) {
+            print_r('rik ');
+            exit();
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Kota/Kabupaten tidak ditemukan!</div>');
             redirect('kabkota');
             return;
