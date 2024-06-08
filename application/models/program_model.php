@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class program_model extends CI_Model {
+class Program_model extends CI_Model {
     
 
         
