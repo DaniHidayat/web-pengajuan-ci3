@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">pengajuan <span>| provinsi</span></h5>
+                                <h5 class="card-title">pengajuan <span>| departement</span></h5>
 
                                 <table class="table table-borderless datatable">
                                     <thead>

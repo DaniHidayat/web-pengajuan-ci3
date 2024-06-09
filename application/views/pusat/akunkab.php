@@ -28,7 +28,7 @@
                             <?php echo $this->session->flashdata('error'); ?>
                         </div>
                         <?php endif; ?> -->
-                        <h5 class="card-title">Akun Provinsi</h5>
+                        <h5 class="card-title">Akun kabkota</h5>
                         <!-- Table with stripped rows -->
                         <div class="mb-3">
                             <a href="<?php echo site_url('accountpusat/addkab'); ?>" type="button"

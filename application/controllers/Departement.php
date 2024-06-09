@@ -563,8 +563,53 @@ class Departement extends CI_Controller {
                 return false;
             }
         }
+        public function editprov($id) {
+            // Mengambil data user berdasarkan ID
+            $data['users'] = $this->account_model->get_user_by_id($id);
+            
+            // Menampilkan view form edit
+            $this->load->view('template/header');
+            $this->load->view('template/sidebardepartement');
+            $this->load->view('departemen/edit_accountprov', $data);
+            $this->load->view('template/footer');
+        }
+    
+        public function updateprov() {
+            
+            $id = $this->input->post('id');
+            
+            // Persiapkan data yang akan diperbarui
+            $data = array(
+                'name_prov' => $this->input->post('name_prov'),
+                'email' => $this->input->post('email'),
+                'username' => $this->input->post('username'),
+                'password' => $this->input->post('password')
+            );
         
+            // Panggil metode model untuk memperbarui data pengguna
+            $update = $this->account_model->update_user($id, $data);
         
+            if ($update) {
+                // Jika update berhasil, redirect ke halaman lain dengan pesan sukses
+                redirect('departement/akunprov?alert=success');
+            } else {
+                // Jika update gagal, redirect ke halaman lain dengan pesan gagal
+                redirect('departement/editprov/'.$id.'?alert=failed');
+            }
+            
+            // Redirect kembali ke halaman daftar akun
+            redirect('departement/akunprov');
+        }
+        public function editkab($id) {
+            // Mengambil data user berdasarkan ID
+            $data['users'] = $this->account_model->get_user_by_id($id);
+            $data['wilayah'] = $this->account_model->get_wilayah();
+            // Menampilkan view form edit
+            $this->load->view('template/header');
+            $this->load->view('template/sidebardepartement');
+            $this->load->view('departemen/edit_accountkab', $data);
+            $this->load->view('template/footer');
+        }
                 public function Profile()
 	{
         $this->load->view('template/header');
@@ -625,7 +670,33 @@ class Departement extends CI_Controller {
         }
         $this->_importExcelDatadept($file_path, $id_pengajuan);
     }
-
+    public function updatekab() {
+                
+        $id = $this->input->post('id');
+        
+        // Persiapkan data yang akan diperbarui
+        $data = array(
+            'name' => $this->input->post('name'),
+            'email' => $this->input->post('email'),
+            'username' => $this->input->post('username'),
+            'wilayah' => $this->input->post('wilayah'),
+            'password' => $this->input->post('password')
+        );
+    
+        // Panggil metode model untuk memperbarui data pengguna
+        $update = $this->account_model->update_user($id, $data);
+    
+        if ($update) {
+            // Jika update berhasil, redirect ke halaman lain dengan pesan sukses
+            redirect('departement/akunkabkota?alert=success');
+        } else {
+            // Jika update gagal, redirect ke halaman lain dengan pesan gagal
+            redirect('departement/editkab/'.$id.'?alert=failed');
+        }
+        
+        // Redirect kembali ke halaman daftar akun
+        redirect('departement/akunkabkota');
+    }
         public function anggaran_pengajuan()
 	{
         $this->load->view('template/header');
