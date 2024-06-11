@@ -1,11 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+//load package composer
+require 'vendor/autoload.php';
+ 
+//deklarasi package yang ingin digunakan
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+ 
 class Pusat extends CI_Controller {
         public function __construct() {
                 parent::__construct();
                 $this->load->model('account_model');
                 $this->load->model('pengajuan_model');
+                $this->load->model('M_laporan');
             }
 	public function index()
 	{
@@ -892,5 +899,56 @@ private function _importExcelDatadept($file_path, $id_pengajuan) {
                 // Redirect kembali ke halaman pengajuan
                 redirect('pusat/anggarankabkota');
             }
+			public function Laporan()
+			{
+				$data['provinces'] = $this->account_model->get_provinces();
+				$data['data'] = $this->M_laporan->get_laporan();
+				$this->load->view('template/header');
+				$this->load->view('template/sidebarpusat');
+				$this->load->view('pusat/laporan',$data);
+				$this->load->view('template/footer');
+			}
+			function getlapByProvince(){
+				$idProvince = $this->input->post('provinsi');
+    $data['data'] = $this->M_laporan->getLaporanByProvinceID($idProvince);
+	
+    // Create new Spreadsheet object
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+
+    // Set headers
+    $sheet->setCellValue('A1', 'ID Pengajuan');
+    $sheet->setCellValue('B1', 'Nama Daerah');
+    $sheet->setCellValue('C1', 'Anggaran');
+    $sheet->setCellValue('D1', 'Keterangan');
+    $sheet->setCellValue('E1', 'Nama Pengajuan');
+    $sheet->setCellValue('F1', 'Tanggal Pengajuan');
+    $sheet->setCellValue('G1', 'Status');
+
+    // Set data
+    $row = 2;
+		foreach ($data['data'] as $row_data) {
+			$sheet->setCellValue('A' . $row, $row_data['id_pengajuan']);
+			$sheet->setCellValue('B' . $row, isset($row_data['Nama_KotaKab']) ? $row_data['Nama_KotaKab'] : $row_data['Nama_Provinsi']);
+			$sheet->setCellValue('C' . $row, $row_data['anggaran']);
+			$sheet->setCellValue('D' . $row, $row_data['keterangan']);
+			$sheet->setCellValue('E' . $row, $row_data['Nama_pengajuan']);
+			$sheet->setCellValue('F' . $row, $row_data['tanggal_pengajuan']);
+			$sheet->setCellValue('G' . $row, $row_data['status']);
+			$row++;
+		}
+
+		// Set file name and save to Excel2007 format
+		$filename = 'laporan_excel.xlsx';
+		$writer = new Xlsx($spreadsheet);
+		$writer->save($filename);
+
+		// Force download file
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="'. $filename .'"');
+		header('Cache-Control: max-age=0');
+		$writer->save('php://output');
+
+				}
       
 }
