@@ -37,6 +37,8 @@ class Dashboard extends CI_Controller {
                 break;
             case 'pusat':
 				$data['laporan'] = $this->M_laporan->get_laporan();
+				$data['anggaran_total_prov'] = $this->M_laporan->get_anggaran_approved_all_prov();
+				
                 $this->load->view('template/header');
                 $this->load->view('template/sidebarpusat');
                 $this->load->view('pusat_dashboard',$data);

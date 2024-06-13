@@ -910,7 +910,7 @@ private function _importExcelDatadept($file_path, $id_pengajuan) {
 			}
 			function getlapByProvince(){
 				$idProvince = $this->input->post('provinsi');
-    $data['data'] = $this->M_laporan->getLaporanByProvinceID($idProvince);
+    			$data['data'] = $this->M_laporan->getLaporanByProvinceID($idProvince);
 	
     // Create new Spreadsheet object
     $spreadsheet = new Spreadsheet();

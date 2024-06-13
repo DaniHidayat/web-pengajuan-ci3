@@ -20,21 +20,10 @@
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card revenue-card">
 
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
+                          
 
                             <div class="card-body">
-                                <h5 class="card-title">Total Anggaran <span>| Nasional</span></h5>
+                                <h5 class="card-title">Total Anggaran <span>| Approved</span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div
@@ -42,13 +31,15 @@
                                         <h6>Rp</h6>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>310,000,000,</h6>
+                                        <h6><?=  number_format($anggaran_total_prov['total_anggaran'], 0, ',', '.');?></h6>
                                         <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span
                                             class="text-muted small pt-2 ps-1">increase</span> -->
 
                                     </div>
                                 </div>
+								
                             </div>
+							
 
                         </div>
                     </div><!-- End Revenue Card -->
