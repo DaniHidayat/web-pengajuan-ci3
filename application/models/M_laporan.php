@@ -29,36 +29,13 @@ class M_laporan extends CI_Model {
 		$this->db->group_by('provinsi.Nama_Provinsi');
 		return $this->db->get()->result_array();
 	}
-	public function getLaporanByProvinceID($provinceID) {
-		// Initialize an array to store the submissions
-		$submissions = array();
+	public function get_pengajuan_by_provinsi($id_provinsi) {
+        $this->db->select('kota_kabupaten.Nama_KotaKab, SUM(IFNULL(pengajuan_kabkota.anggaran, 0)) as anggaran');
+        $this->db->from('pengajuan_kabkota');
+        $this->db->join('kota_kabupaten', 'pengajuan_kabkota.kodenama_daerah = kota_kabupaten.ID_KotaKab', 'left');
+        $this->db->where('kota_kabupaten.ID_Provinsi', $id_provinsi);
+        $this->db->group_by('kota_kabupaten.Nama_KotaKab');
+        return $this->db->get()->result_array();
+    }
 	
-		// Get submissions from pengajuan_provinsi table
-		$this->db->select('pengajuan_provinsi.*, provinsi.Nama_Provinsi');
-		$this->db->from('pengajuan_provinsi');
-		$this->db->join('provinsi', 'pengajuan_provinsi.kodenama_daerah = provinsi.ID_Provinsi');
-		$this->db->where('provinsi.ID_Provinsi', $provinceID);
-		// $this->db->where('pengajuan_provinsi.status', 'Approved'); // Filter only "Approved" submissions
-		$query_provinsi = $this->db->get()->result_array();
-		// Add submissions to the array
-		$submissions = array_merge($submissions, $query_provinsi);
-	
-		// Get submissions from pengajuan_kabkota table
-		$this->db->select('pengajuan_kabkota.*,kota_kabupaten.Nama_KotaKab');
-		$this->db->from('pengajuan_kabkota');
-		$this->db->join('kota_kabupaten', 'pengajuan_kabkota.kodenama_daerah = kota_kabupaten.ID_KotaKab');
-		$this->db->where('kota_kabupaten.ID_Provinsi', $provinceID);
-		$this->db->where('pengajuan_kabkota.status', 'Approved'); // Filter only "Approved" submissions
-		$query_kabkota = $this->db->get()->result_array();
-		// Add submissions to the array
-		$submissions = array_merge($submissions, $query_kabkota);
-	
-		// Return the submissions
-		return $submissions;
-	}
-	
-	
-	
- 
- 
 }

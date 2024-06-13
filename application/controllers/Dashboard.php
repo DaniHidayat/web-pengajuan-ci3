@@ -4,6 +4,7 @@ class Dashboard extends CI_Controller {
         parent::__construct();
         $this->load->library('session');
         $this->load->model('pengajuan_model');
+		$this->load->model('M_laporan');
     }
 
     public function index() {
@@ -28,19 +29,20 @@ class Dashboard extends CI_Controller {
                     $this->session->set_flashdata('error', 'Anda tidak memiliki akses ke halaman ini.');
                     redirect('login');
                 }
-                $data['pengajuan'] = $this->pengajuan_model->get_pengajuan_by_provinsi($id_provinsi);
+                $data['pengajuan'] = $this->M_laporan->get_pengajuan_by_provinsi($id_provinsi);
                 $this->load->view('template/header');
                 $this->load->view('template/sidebarprov');
                 $this->load->view('provinsi_dashboard',$data);
                 $this->load->view('template/footer');
                 break;
             case 'pusat':
+				$data['laporan'] = $this->M_laporan->get_laporan();
                 $this->load->view('template/header');
                 $this->load->view('template/sidebarpusat');
-                $this->load->view('pusat_dashboard');
+                $this->load->view('pusat_dashboard',$data);
                 $this->load->view('template/footer');
                 break;
-            case 'departement':
+		case 'departement':
                     $this->load->view('template/header');
                     $this->load->view('template/sidebardepartement');
                     $this->load->view('departement');

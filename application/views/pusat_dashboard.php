@@ -55,7 +55,7 @@
 
 
                     <!-- Revenue Card -->
-                    <div class="col-xxl-4 col-md-6">
+                    <!-- <div class="col-xxl-4 col-md-6">
                         <div class="card info-card revenue-card">
 
                             <div class="filter">
@@ -89,107 +89,78 @@
                             </div>
 
                         </div>
-                    </div><!-- End Revenue Card -->
+                    </div> -->
+					<!-- End Revenue Card -->
 
 
 
                     <!-- Reports -->
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Report Statistic</h5>
-
-                                <!-- Line Chart -->
-                                <canvas id="lineChart" style="max-height: 400px;"></canvas>
-                                <script>
-                                document.addEventListener("DOMContentLoaded", () => {
-                                    new Chart(document.querySelector('#lineChart'), {
-                                        type: 'line',
-                                        data: {
-                                            labels: ['Jawa barat', 'Jawa timur', 'Jawa tengah',
-                                                'Jawa timur',
-                                                'Kalimantan barat',
-                                                'Sulawesi barat', 'Sumatra barat'
-                                            ],
-                                            datasets: [{
-                                                label: 'Anggaran Terpakai Tiap Provinsi',
-                                                data: [65, 59, 80, 81, 56, 55, 40],
-                                                fill: false,
-                                                borderColor: 'rgb(75, 192, 192)',
-                                                tension: 0.1
-                                            }]
-                                        },
-                                        options: {
-                                            scales: {
-                                                y: {
-                                                    beginAtZero: true
-                                                }
+                  
+					<div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Anggaran Tiap Wilayah</h5>
+                <!-- Bar Chart -->
+                <canvas id="barChart" style="max-height: 400px;"></canvas>
+                <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        const ctx = document.getElementById('barChart').getContext('2d');
+                        const data = {
+                            labels: <?php echo json_encode(array_column($laporan, 'Nama_Provinsi')); ?>,
+                            datasets: [{
+                                label: 'Total Anggaran (Rp)',
+                                data: <?php echo json_encode(array_column($laporan, 'total_anggaran')); ?>,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)',
+                                    'rgba(255, 205, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(201, 203, 207, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(201, 203, 207)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        };
+                        const config = {
+                            type: 'bar',
+                            data: data,
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            callback: function(value, index, values) {
+                                                return 'Rp' + value.toLocaleString('id-ID');
                                             }
                                         }
-                                    });
-                                });
-                                </script>
-                                <!-- End Line CHart -->
-
-                            </div>
-                        </div>
-                    </div><!-- End Reports -->
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Report Static provinsi jabar</h5>
-
-                                <!-- Bar Chart -->
-                                <canvas id="barChart" style="max-height: 400px;"></canvas>
-                                <script>
-                                document.addEventListener("DOMContentLoaded", () => {
-                                    new Chart(document.querySelector('#barChart'), {
-                                        type: 'bar',
-                                        data: {
-                                            labels: ['Kab.Tasikmalaya', 'Ciamis', 'Bandung',
-                                                'Pangandaran',
-                                                'Garut',
-                                                'Majalengka', 'Kota.Tasikmalaya'
-                                            ],
-                                            datasets: [{
-                                                label: 'Static provinsi jabar',
-                                                data: [65, 59, 80, 81, 56, 55, 40],
-                                                backgroundColor: [
-                                                    'rgba(255, 99, 132, 0.2)',
-                                                    'rgba(255, 159, 64, 0.2)',
-                                                    'rgba(255, 205, 86, 0.2)',
-                                                    'rgba(75, 192, 192, 0.2)',
-                                                    'rgba(54, 162, 235, 0.2)',
-                                                    'rgba(153, 102, 255, 0.2)',
-                                                    'rgba(201, 203, 207, 0.2)'
-                                                ],
-                                                borderColor: [
-                                                    'rgb(255, 99, 132)',
-                                                    'rgb(255, 159, 64)',
-                                                    'rgb(255, 205, 86)',
-                                                    'rgb(75, 192, 192)',
-                                                    'rgb(54, 162, 235)',
-                                                    'rgb(153, 102, 255)',
-                                                    'rgb(201, 203, 207)'
-                                                ],
-                                                borderWidth: 1
-                                            }]
-                                        },
-                                        options: {
-                                            scales: {
-                                                y: {
-                                                    beginAtZero: true
-                                                }
-                                            }
+                                    }
+                                },
+                                tooltips: {
+                                    callbacks: {
+                                        label: function(tooltipItem, data) {
+                                            return 'Rp' + tooltipItem.yLabel.toLocaleString('id-ID');
                                         }
-                                    });
-                                });
-                                </script>
-                                <!-- End Bar CHart -->
-
-                            </div>
-                        </div>
-                    </div>
+                                    }
+                                }
+                            }
+                        };
+                        new Chart(ctx, config);
+                    });
+                </script>
+                <!-- End Bar Chart -->
+            </div>
+        </div>
+    </div>
 
 
 
@@ -201,3 +172,4 @@
     </section>
 
 </main><!-- End #main -->
+

@@ -173,15 +173,7 @@ class Pengajuan_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-    public function get_pengajuan_by_provinsi($id_provinsi) {
-        $this->db->select('pengajuan_kabkota.*, SUM(import.total) as anggaran, kota_kabupaten.Nama_KotaKab');
-        $this->db->from('pengajuan_kabkota');
-        $this->db->join('import', 'import.id_pengajuan = pengajuan_kabkota.id_pengajuan', 'left');
-        $this->db->join('kota_kabupaten', 'pengajuan_kabkota.kodenama_daerah = kota_kabupaten.ID_KotaKab', 'left');
-        $this->db->where('kota_kabupaten.ID_Provinsi', $id_provinsi);
-        $this->db->group_by('pengajuan_kabkota.id_pengajuan');
-        return $this->db->get()->result_array();
-    }
+ 
     
     public function get_pengajuan_anggarankab() {
         // Pilih kolom yang diperlukan dari pengajuan_kabkota, total anggaran dari tabel import, dan nama kota/kabupaten dari tabel_kabkota
@@ -339,3 +331,4 @@ public function get_data_for_downloaddept($id_pengajuan) {
     }
 }
 }
+

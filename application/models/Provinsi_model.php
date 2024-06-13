@@ -16,4 +16,10 @@ class Provinsi_model extends CI_Model {
         // Ambil semua data akun provinsi dari database
         return $this->db->get('tabel_akun_provinsi')->result();
     }
+	public function get_name_provinsi($ID_Provinsi) {
+		// Ambil data provinsi dari database berdasarkan ID_Provinsi
+		$this->db->where('ID_Provinsi', $ID_Provinsi);
+		return $this->db->get('provinsi')->row();
+	}
+	
 }

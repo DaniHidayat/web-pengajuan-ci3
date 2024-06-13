@@ -17,79 +17,9 @@
             <div class="col-lg-12">
                 <div class="row">
 
-                    <div class="col-xxl-4 col-md-6">
-                        <div class="card info-card revenue-card">
-
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Total Anggaran <span>| Nasional</span></h5>
-
-                                <div class="d-flex align-items-center">
-                                    <div
-                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <h6>Rp</h6>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>310,000,000,</h6>
-                                        <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span
-                                            class="text-muted small pt-2 ps-1">increase</span> -->
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div><!-- End Revenue Card -->
 
 
-                    <!-- Revenue Card -->
-                    <div class="col-xxl-4 col-md-6">
-                        <div class="card info-card revenue-card">
-
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Hari ini</a></li>
-                                    <li><a class="dropdown-item" href="#">Bulan ini</a></li>
-                                    <li><a class="dropdown-item" href="#">Tahun ini</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Anggaran <span>| Terpakai</span></h5>
-
-                                <div class="d-flex align-items-center">
-                                    <div
-                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <h6>Rp</h6>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>100,000,000</h6>
-                                        <span class="text-muted small pt-2 ps-1">Anggaran terpakai di
-                                            provinsi-provinsi</span>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div><!-- End Revenue Card -->
+                    
 
 
 
@@ -97,7 +27,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Report Static provinsi jabar</h5>
+                                <h5 class="card-title">Report Static provinsi <?= $this->session->userdata('Nama_Provinsi');?></h5>
 
                                 <!-- Bar Chart -->
                                 <canvas id="barChart" style="max-height: 400px;"></canvas>
@@ -106,33 +36,35 @@
                                     new Chart(document.querySelector('#barChart'), {
                                         type: 'bar',
                                         data: {
-                                            labels: ['Kab.Tasikmalaya', 'Ciamis', 'Bandung',
-                                                'Pangandaran',
-                                                'Garut',
-                                                'Majalengka', 'Kota.Tasikmalaya'
-                                            ],
+                                            labels: <?php echo json_encode(array_column($pengajuan, 'Nama_KotaKab')); ?>,
                                             datasets: [{
-                                                label: 'Static provinsi jabar',
-                                                data: [65, 59, 80, 81, 56, 55, 40],
-                                                backgroundColor: [
-                                                    'rgba(255, 99, 132, 0.2)',
-                                                    'rgba(255, 159, 64, 0.2)',
-                                                    'rgba(255, 205, 86, 0.2)',
-                                                    'rgba(75, 192, 192, 0.2)',
-                                                    'rgba(54, 162, 235, 0.2)',
-                                                    'rgba(153, 102, 255, 0.2)',
-                                                    'rgba(201, 203, 207, 0.2)'
-                                                ],
-                                                borderColor: [
-                                                    'rgb(255, 99, 132)',
-                                                    'rgb(255, 159, 64)',
-                                                    'rgb(255, 205, 86)',
-                                                    'rgb(75, 192, 192)',
-                                                    'rgb(54, 162, 235)',
-                                                    'rgb(153, 102, 255)',
-                                                    'rgb(201, 203, 207)'
-                                                ],
-                                                borderWidth: 1
+												label: 'Total Anggaran (Rp)',
+                                                data: <?php echo json_encode(array_column($pengajuan, 'anggaran')); ?>,
+												backgroundColor: [
+												'rgba(75, 192, 192, 0.2)',   // Light Cyan
+												'rgba(54, 162, 235, 0.2)',   // Light Blue
+												'rgba(255, 206, 86, 0.2)',   // Light Yellow
+												'rgba(255, 159, 64, 0.2)',   // Light Orange
+												'rgba(255, 99, 132, 0.2)',   // Light Red
+												'rgba(153, 102, 255, 0.2)',  // Light Purple
+												'rgba(201, 203, 207, 0.2)',  // Light Grey
+												'rgba(0, 255, 127, 0.2)',    // Light Green
+												'rgba(255, 140, 0, 0.2)',    // Light Dark Orange
+												'rgba(138, 43, 226, 0.2)'    // Light Blue Violet
+											],
+											borderColor: [
+												'rgba(75, 192, 192, 1)',     // Cyan
+												'rgba(54, 162, 235, 1)',     // Blue
+												'rgba(255, 206, 86, 1)',     // Yellow
+												'rgba(255, 159, 64, 1)',     // Orange
+												'rgba(255, 99, 132, 1)',     // Red
+												'rgba(153, 102, 255, 1)',    // Purple
+												'rgba(201, 203, 207, 1)',    // Grey
+												'rgba(0, 255, 127, 1)',      // Green
+												'rgba(255, 140, 0, 1)',      // Dark Orange
+												'rgba(138, 43, 226, 1)'      // Blue Violet
+											],
+														borderWidth: 1
                                             }]
                                         },
                                         options: {
@@ -162,3 +94,5 @@
     </section>
 
 </main><!-- End #main -->
+
+
