@@ -63,7 +63,15 @@
                                             <th scope="row"><?= $key + 1 ?></th>
                                             <td><?= $item['Nama_KotaKab'] ?></td>
                                             <td><?= $item['Nama_pengajuan'] ?></a></td>
-                                            <td><?= $item['anggaran'] ?></td>
+                                            <td>
+                                                <?php 
+												if ($item['anggaran'] !== null) {
+													echo 'Rp.' . number_format($item['anggaran'], 0, ',', '.'); 
+												} else {
+													echo 'N/A'; // atau teks atau nilai default lainnya
+												}
+											?>
+                                            </td>
                                             <td><?= $item['tanggal_pengajuan'] ?></td>
                                             <!-- <td>
                                                 <a href="<?= base_url('Departement/lihatBerkas1/' . $item['id_pengajuan']) ?>"
